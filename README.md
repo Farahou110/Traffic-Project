@@ -1,6 +1,8 @@
 # Traffic-Project
 
 ##Overview##
+
+
 Traffic congestion is a widespread issue affecting cities across the world. It refers to the condition when demand for road space exceeds the available capacity, leading to delays, inefficiencies, and environmental problems. The effects of traffic extend beyond just inconvenience for commuters, impacting economic productivity, public health, and overall quality of life.
 
 This project explores the effects of traffic congestion and how effective traffic management strategies, such as vehicle verification, can help mitigate these issues. It also integrates technologies like geolocation, real-time data, and vehicle verification to assist in managing traffic flow and ensuring public safety.
