@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Location Map</title>
+    <style>
+      #map {
+        height: 500px;
+        width: 100%;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>📍 Your Location on the Map</h2>
+    <div id="map"></div>
+
+    <script>
+      function initMap() {
+        // Default location if user denies permission
+        let mapOptions = {
+          center: { lat: -1.2921, lng: 36.8219 }, // Nairobi fallback
+          zoom: 14,
+        };
+
+        const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        // Try get user's location
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+
+              new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: "You are here!",
+              });
+
+              map.setCenter(userLocation);
+            },
+            () => {
+              alert("Location permission denied or unavailable.");
+            }
+          );
+        } else {
+          alert("Geolocation not supported by your browser.");
+        }
+      }
+    </script>
+
+    <!-- Replace YOUR_API_KEY with your actual Google Maps JavaScript API key -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
+</html>
