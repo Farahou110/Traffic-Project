@@ -1,7 +1,7 @@
-__pycache__
 .pyc
 env
 venv
 .log
 instance
 .db
+__pycache__
