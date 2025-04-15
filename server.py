@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = "secret_1234"
 
 # Mapbox Access Token
-MAPBOX_ACCESS_TOKEN = 'YOUR_MAPBOX_ACCESS_TOKEN'  # Replace with your Mapbox access token
+MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZmFyYWhvdSIsImEiOiJjbTljZWZrYzgwbXQ4MmxxdzE0NXBxcDJzIn0.SQpSzu4EYgHhK3g7dJ3SjwN'  # Replace with your Mapbox access token
 
 
 @app.route("/")
@@ -35,7 +35,9 @@ def verify_plate():
         })
 
         # Fetch user data from NTSA data
-        user = visitors.find_one({"username": Owner_Name})
+       
+        user = visitors.find_one({ "username": Owner_Name })
+        print(user)
         
         if user:
             # app.logger.info("User found: Rendering dash.html,{Owner_Name}")
