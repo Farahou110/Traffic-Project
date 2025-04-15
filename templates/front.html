@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Plate Verification</title>
+<style>
+  /* Flash Message Styles */
+  .flash-message {
+    padding: 20px;
+    width: 400px;
+    margin: 10px auto;  /* Centered and small margin around the flash message */
+    border-radius: 50px;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: oblique;
+    text-decoration: black;
+    display: inline-block;
+    opacity: 1;
+    transition: opacity 1s ease-out;  /* Smooth fade-out */
+  }
+
+  .success {
+    background-color: green;
+    color: white;
+  }
+
+  .error {
+    background-color: rgb(99, 97, 97);
+    color: white;
+  }
+
+  /* Page Background */
+  body {
+    
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: rgb(119, 118, 118); /* Text color for body */
+    flex-direction: column; /* Stacks elements vertically */
+    padding: 20px;
+  }
+
+  /* Form Box Container with Blurred Background */
+  .form-container {
+    /*background: rgba(8, 8, 8, 0.8);  /* Transparent white background */
+    padding: 30px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);  /* Apply blur effect */
+    width: 400px;
+    margin-top: 20px;  /* Space between flash message and form */
+    box-shadow: 10px 10px 12px 10px rgba(0, 0, 0, 10); /* Subtle shadow for depth */
+  }
+
+  /* Input Fields Styles */
+  input[type="text"], input[type="number"], button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  }
+
+  input[type="text"]:focus, input[type="number"]:focus, button:focus {
+    border-color: #007BFF; /* Blue border on focus */
+    outline: none;
+  }
+
+  button {
+    background-color: #28a745; /* Green button */
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+
+  /* Styling for H1 */
+  h1 {
+    font-size: 36px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Vehicle Plate Verification</h1>  
+
+  <!-- Flash Messages -->
+  <!-- {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="{{ category }} category flash-message">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %} -->
+
+  <br>
+
+  <!-- Form Container with Blurred Background -->
+  <div class="form-container">
+    <!-- Form for Vehicle Plate Verification -->
+    <form method="POST" action="{{ url_for('verify_plate') }}">
+      <div>
+        <label for="plate_number">Enter Plate Number:</label>
+        <input type="text" id="plate_number" name="plate_number" required>
+      </div>
+      <br>
+      <div>
+        <label for="Owner_name">Enter your Name</label>
+        <input type="text" id="Owner_name" name="Owner_name" required>
+      </div>
+      <br>
+      <div>
+        <label for="Owner_ID">Enter ID number:</label>
+        <input type="number" id="Owner_ID" name="Owner_ID" required>
+      </div>
+      <br>
+      <div>
+        <button type="submit">Verify</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- JavaScript to automatically hide flash messages after a timeout -->
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      // Flash message timeout (3 seconds)
+      setTimeout(function() {
+        const flashMessage = document.querySelector('.flash-message');
+        if (flashMessage) {
+          flashMessage.style.opacity = 0;  // Fade out the flash message
+          setTimeout(function() {
+            flashMessage.style.display = 'none';  // Hide the message after fade
+          }, 1000);  // Match the transition time
+        }
+      }, 3000);  // 3 seconds before fading out
+    });
+  </script>
+
+</body>
+</html>

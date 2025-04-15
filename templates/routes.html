@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Easiest Route</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        #map { height: 500px; width: 100%; }
+        #calculate-route { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h2>📍 Calculate the Easiest Route</h2>
+
+<!-- User inputs for destination -->
+<input type="text" id="destination" placeholder="Enter Destination (Lat,Lng)" />
+<button id="get-route">Get Route</button>
+
+<div id="map"></div>
+
+<!-- Include Mapbox JS -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
+
+<script>
+    mapboxgl.accessToken = "YOUR_MAPBOX_ACCESS_TOKEN"; // Replace with your Mapbox Access Token
+
+    const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v11", 
+        center: [0, 0], 
+        zoom: 13
+    });
+
+    // Get user's location and calculate route
+    function getUserLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                map.setCenter([lng, lat]);
+                map.setZoom(15);
+
+                new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+
+                document.getElementById('get-route').addEventListener('click', function () {
+                    const destination = document.getElementById('destination').value.split(',');
+                    const destLat = parseFloat(destination[0]);
+                    const destLng = parseFloat(destination[1]);
+
+                    // Send current location and destination to Flask backend
+                    fetch('/calculate_route', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            user_location: { lat, lng },
+                            destination: { lat: destLat, lng: destLng }
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);  // Handle the response, display routes, etc.
+                    });
+                });
+            }, function () {
+                alert("Location permission denied.");
+            });
+        } else {
+            alert("Geolocation not supported.");
+        }
+    }
+
+    getUserLocation();
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traffic Dashboard</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f2f2f2;
+      margin-top: 100px;
+    }
+    h1 {
+      margin-bottom: 40px;
+    }
+    button {
+      margin: 20px;
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚦<h2>Hi, {{ username }}! , welcome to the Traffic Control Dashboard</h1>
+
+  <button onclick="openMap()">Open Map</button>
+  <button onclick="calculateRoute()">Calculate Easiest Route</button>
+  <button onclick="exitPage()">Exit</button>
+
+  <script>
+    function openMap() {
+      window.open("leaflet.html");
+      
+  const MAPBOX_TOKEN = "{{ mapbox_token }}";
+  // Use it in your Mapbox map setup
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+
+    }
+
+    function calculateRoute() {
+      window.open("routes.html")
+      // Later you can hook this to a backend service
+    }
+
+    function exitPage() {
+      window.close(); // May not work on all browsers unless the tab was opened via JS
+      alert("click ok to close exit.");
+    }
+  </script>
+
+</body>
+</html>
