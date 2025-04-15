@@ -1,6 +1,11 @@
 from flask import Flask, request, jsonify, render_template, session,url_for,redirect,flash
 from pymongo import MongoClient
 import requests
+from dotenv import load_dotenv
+import os
+
+
+
 
 client = MongoClient("mongodb://localhost:27017/")
 db = client["Traffic_project"]
@@ -8,10 +13,16 @@ vehicle_table = db["vehicles"]
 visitors = db["visitor"]
 
 app = Flask(__name__)
-app.secret_key = "secret_1234"
 
-# Mapbox Access Token
-MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZmFyYWhvdSIsImEiOiJjbTljZWZrYzgwbXQ4MmxxdzE0NXBxcDJzIn0.SQpSzu4EYgHhK3g7dJ3SjwN'  # Replace with your Mapbox access token
+
+
+load_dotenv()
+
+app.secret_key =os.getenv("secret_key")
+MAPBOX_ACCESS_TOKEN=os.getenv("MAPBOX_ACCESS_TOKEN")
+
+# Mapbox Access token
+MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZmFyYWhvdSIsImEiOiJjbTljZWZrYzgwbXQ4MmxxdzE0NXBxcDJzIn0.SQpSzu4EYgHhK3g7dJ3SjwN'  
 
 
 @app.route("/")
