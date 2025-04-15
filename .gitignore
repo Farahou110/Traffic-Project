@@ -1,5 +1,5 @@
 .pyc
-env
+.env
 venv
 .log
 instance
