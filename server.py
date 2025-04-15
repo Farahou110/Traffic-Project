@@ -21,8 +21,6 @@ load_dotenv()
 app.secret_key =os.getenv("secret_key")
 MAPBOX_ACCESS_TOKEN=os.getenv("MAPBOX_ACCESS_TOKEN")
 
-# Mapbox Access token
-MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZmFyYWhvdSIsImEiOiJjbTljZWZrYzgwbXQ4MmxxdzE0NXBxcDJzIn0.SQpSzu4EYgHhK3g7dJ3SjwN'  
 
 
 @app.route("/")
